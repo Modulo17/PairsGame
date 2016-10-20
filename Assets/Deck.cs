@@ -19,14 +19,27 @@ public class Deck : MonoBehaviour {
 		mDealerCards=new List<Card>();
 																			//NB: Even though it a 2D game I am incrementing Z as it will enuring the cards display correctly
 																			//as the last dealt card will be furthest from the camera, making it look like they were spread out by a dealer
-																			
+		MakeCustomDeck ();																	
+
+		PositionCards ();
+
+	}
+
+
+	private	void	MakeDeck() {
 		for (int tCardID = 0; tCardID < mFrontSprites.Length; tCardID++) {
 			Card	tCard = MakeCard (tCardID);				//Make a new card from prefab
 			mDealerCards.Add (tCard);					//Add card to dealer list
 		}
-		PositionCards ();
-
 	}
+
+	private	void	MakeCustomDeck() {
+		for (int tCardID = 0; tCardID < 10; tCardID+=2) {
+			Card	tCard = MakeCard (tCardID);				//Make a new card from prefab
+			mDealerCards.Add (tCard);					//Add card to dealer list
+		}
+	}
+
 
 	private void	PositionCards() {			//Position cards in Gameworld accoring to position in Deck
 		Vector3	tDealPosition = Vector3.zero;

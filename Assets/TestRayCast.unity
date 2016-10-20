@@ -101,6 +101,8 @@ GameObject:
   - 212: {fileID: 363722453}
   - 61: {fileID: 363722452}
   - 114: {fileID: 363722451}
+  - 114: {fileID: 363722455}
+  - 114: {fileID: 363722456}
   m_Layer: 0
   m_Name: TestCard
   m_TagString: Untagged
@@ -119,8 +121,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5e5eafae2c30a4c6392199e0179322fe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  FrontSprite: {fileID: 21300074, guid: 82864182db45f4cab80e867716948974, type: 3}
-  BackSprite: {fileID: 21300000, guid: c4a7a2f9f87944d97a5ac1e62c3c43c9, type: 3}
   ShowCard: 0
 --- !u!61 &363722452
 BoxCollider2D:
@@ -182,6 +182,30 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 1
+--- !u!114 &363722455
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 363722450}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 79f56f52a24e045d98593a74c47750f9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  FrontSprite: {fileID: 21300024, guid: 82864182db45f4cab80e867716948974, type: 3}
+  BackSprite: {fileID: 21300000, guid: c4a7a2f9f87944d97a5ac1e62c3c43c9, type: 3}
+--- !u!114 &363722456
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 363722450}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f82bb560e13344efca43484c7983e1a6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1189677400
 GameObject:
   m_ObjectHideFlags: 0
@@ -278,6 +302,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 1189677400}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1dda4bec33c3d49e792ba00ee2908aa2, type: 3}
+  m_Script: {fileID: 11500000, guid: af81d33f6b43d48778008175d3ae43fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

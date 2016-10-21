@@ -34,8 +34,8 @@ public class Deck : MonoBehaviour {
 	}
 
 	private	void	MakeCustomDeck() {
-		for (int tCardID = 0; tCardID < 10; tCardID+=2) {
-			Card	tCard = MakeCard (tCardID);				//Make a new card from prefab
+		for (int tCardID = 0; tCardID < 4; tCardID++) {
+			Card	tCard = MakeCard (tCardID*13);				//Make a new card from prefab
 			mDealerCards.Add (tCard);					//Add card to dealer list
 		}
 	}

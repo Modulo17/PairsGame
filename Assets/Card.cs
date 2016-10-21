@@ -52,7 +52,7 @@ public class Card : MonoBehaviour {
 		}
 	}
 
-	public	int	Rank {
+	public	int	Rank {						//This will work out the Rank number check https://msdn.microsoft.com/en-us/library/h6zfzfy7(v=vs.100).aspx for how modulo works
 		get	{
 			return	CardID % sRankName.Length;
 		}
@@ -60,7 +60,7 @@ public class Card : MonoBehaviour {
 
 	public	int	Suit {
 		get	{
-			return	(CardID/sRankName.Length) % sSuiteName.Length;
+			return	(CardID/sRankName.Length) % sSuiteName.Length; //This will work out the suit and also ensure it does not exceed the range 0-3
 		}
 	}
 
@@ -72,9 +72,9 @@ public class Card : MonoBehaviour {
 									//Would also allow for the possibilty to not use update to check card each render, as setter could be used to update 
 									//SR.sprite when it updates the state variable
 
-	private	SpriteRenderer	SR;				//Copy of reference to SpriteRenderer stored here,for rapid access later 
+	private	SpriteRenderer	SR;		//Copy of reference to SpriteRenderer stored here,for rapid access later 
 	
-	private	int	CardID;			//Unique ID of this card from 0-51 i.e. 4 Suits x 13 Ranks
+	private	int	CardID;				//Unique ID of this card from 0-51 i.e. 4 Suits x 13 Ranks
 
 
 	//Awake() Unity calls this before Start() see https://unity3d.com/learn/tutorials/topics/scripting/awake-and-start
@@ -105,12 +105,12 @@ public class Card : MonoBehaviour {
 		if (CardID >= 0) {		//If Card was not initalised this will be -1, handy check as otherwise it simply wont show
 			SetCardSprite();		//Pick correct sprite to show
 		} else {
-			Debug.Log ("Error Card has not been Initalised");
+			Debug.Log ("Error Card has not been Initalised");			//In case I forget to initialise the card
 		}
 	}
 
 
-	public override string ToString ()	{
-		return string.Format ("{0} of {1}", SuitName, RankName);
+	public override string ToString ()	{				//This will override the ToSting() method check https://msdn.microsoft.com/en-us/library/ms173154.aspx
+		return string.Format ("{0} of {1}", SuitName, RankName);		//To provide a usefull description of the card, rather than the default one provided by the base class
 	}
 }

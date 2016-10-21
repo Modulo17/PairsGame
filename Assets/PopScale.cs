@@ -5,8 +5,8 @@ public class PopScale : MonoBehaviour {
 
 	private	bool	mLock=false;			//Ensure this cannot start again until the last one completes 
 
-	public	bool	DoPopScale(float vSize=1.2f) {
-		if (!mLock) {
+	public	bool	DoPopScale(float vSize=1.2f) {		//Helper method to call Coroutine
+		if (!mLock) {		//Only allow it to run if not already running
 			StartCoroutine(DoPopScaleCoroutine(vSize));
 			return	true;
 		}
@@ -30,6 +30,6 @@ public class PopScale : MonoBehaviour {
 			yield	return	null;			//Return once per iteration, until we have arrived
 		}
 		transform.localScale = tNormalScale;		//Make sure scale is set back to what it was, as Lerp may slightly undershoot
-		mLock = false;
+		mLock = false;					//Its finished so signal it can run again
 	}
 }

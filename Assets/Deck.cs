@@ -19,7 +19,7 @@ public class Deck : MonoBehaviour {
 		mDealerCards=new List<Card>();
 																			//NB: Even though it a 2D game I am incrementing Z as it will enuring the cards display correctly
 																			//as the last dealt card will be furthest from the camera, making it look like they were spread out by a dealer
-		MakeCustomDeck ();																	
+		MakeDeck ();																	
 
 		PositionCards ();
 
@@ -27,13 +27,13 @@ public class Deck : MonoBehaviour {
 
 
 	private	void	MakeDeck() {
-		for (int tCardID = 0; tCardID < mFrontSprites.Length; tCardID++) {
+		for (int tCardID = 0; tCardID < mFrontSprites.Length; tCardID++) {			//make a 52 card deck
 			Card	tCard = MakeCard (tCardID);				//Make a new card from prefab
 			mDealerCards.Add (tCard);					//Add card to dealer list
 		}
 	}
 
-	private	void	MakeCustomDeck() {
+	private	void	MakeCustomDeck() {					//Used for debug to make special decks
 		for (int tCardID = 0; tCardID < 4; tCardID++) {
 			Card	tCard = MakeCard (tCardID*13);				//Make a new card from prefab
 			mDealerCards.Add (tCard);					//Add card to dealer list
@@ -51,14 +51,20 @@ public class Deck : MonoBehaviour {
 	}
 
 	public	void	Shuffle() {
-		List<Card>	tPreShuffleCards=mDealerCards;	//Old Dealer List of cards
+		List<Card>	tPreShuffleCards=mDealerCards;	//Old Dealer List of cards, keep to for shuffle
 		mDealerCards=new List<Card>();		//Dealer gets new list
 		while (tPreShuffleCards.Count > 0) {
-			Card tCard = tPreShuffleCards [Random.Range (0, tPreShuffleCards.Count)];
-			tPreShuffleCards.Remove (tCard);
-			mDealerCards.Add (tCard);
+			Card tCard = tPreShuffleCards [Random.Range (0, tPreShuffleCards.Count)];		//Pick random card
+			tPreShuffleCards.Remove (tCard);												//Remove from temp Deck
+			mDealerCards.Add (tCard);														//Place in new Dealer deck
 		}
-		PositionCards ();
+		PositionCards ();		//Cards need to be repositioned as they have effectivly moved, this ensures they depth sort correctly
+	}
+
+	public	void	Flip() {
+		foreach (Card tCard in mDealerCards) {
+			tCard.ShowCard = !tCard.ShowCard;
+		}
 	}
 
 	private	Card	MakeCard(int vCardID) {
@@ -67,7 +73,7 @@ public class Deck : MonoBehaviour {
 			tCardGO.transform.SetParent (transform);						//Make the dealer GO the parent, super handy as I can move all the cards by moving the dealer
 			Card	tCard = tCardGO.GetComponent<Card> ();					//Get reference to card script
 			tCard.Init (vCardID, mFrontSprites [vCardID], mBackSprite);		//Tell card to initalise itself
-			return	tCard;
+			return	tCard;													//Return reference to card
 		}
 		Debug.Log (string.Format("Invalid card ID {0}", vCardID));			//Error, CardID not valid
 		return	null;

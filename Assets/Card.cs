@@ -17,15 +17,20 @@ using System.Collections;
 
 public class Card : MonoBehaviour {
 
+	//Text which describes each Suit
+	//Static as all cards share these names
+	//Stored as an array
 	private	static	string[] sSuiteName = {
-		"Clubs"			//Text which is the the same sequence as Suits, when using enum cast Suits (uint) this gives a handy Index 
+		"Clubs"			
 		,"Diamonds"
 		,"Hearts"
 		,"Spades"
 	};
-
+	//Text which describes each Rank
+	//Static as all cards share these names
+	//Stored as an array
 	private	static string[] sRankName = {
-		"Ace"			//Text which is the the same sequence as Ranks, when using enum cast Ranks (uint) this gives a handy Index 
+		"Ace"
 		, "Two"
 		, "Three"
 		, "Four"
@@ -40,28 +45,43 @@ public class Card : MonoBehaviour {
 		, "King"
 	};
 
+		//Return Suite name, clamp to Array size
 	public	string	SuitName {
 		get	{
-			return	sSuiteName[Suit];		//Return Suite name, clamp to Array size
+			return	sSuiteName[Suit]; //Uses Suit getter
 		}
 	}
-
+	//Return Rank name, clamp to Array size
 	public	string	RankName {
 		get	{
-			return	sRankName[Rank];		//Return Rank name, clamp to Array size
+			return	sRankName[Rank]; //Uses Rank getter
 		}
 	}
 
-	public	int	Rank {						//This will work out the Rank number check https://msdn.microsoft.com/en-us/library/h6zfzfy7(v=vs.100).aspx for how modulo works
+	//This will work out the Rank number
+	//check https://msdn.microsoft.com/en-us/library/h6zfzfy7(v=vs.100).aspx
+	//for how modulo works
+	public	int	Rank {
 		get	{
-			return	CardID % sRankName.Length;
+			return	CardID % sRankName.Length; //Use Length of array to clamp
 		}
 	}
-
+	//This will work out the suit and also ensure it does not exceed the range 0-3
 	public	int	Suit {
 		get	{
-			return	(CardID/sRankName.Length) % sSuiteName.Length; //This will work out the suit and also ensure it does not exceed the range 0-3
+			return	(CardID/sRankName.Length) % sSuiteName.Length;
 		}
+	}
+
+	//Make a CardID given a Suit and Rank
+	//Values clamped with Suit Array size (typically 4) 
+	//and Rank Array size (typically 13) if full deck
+	public	int	MakeCardID(int vSuit, int vRank) {
+		//Work out where Cards of that Suit would start (Suit*13)
+		int	tCardID = ((vSuit % sSuiteName.Length) * RankName.Length);
+		//Add in clamped Rank
+		tCardID += vRank % RankName.Length;
+		return	tCardID;
 	}
 
 	private	Sprite	FrontSprite;	//Sprite to use for the front of the card, now assigned by code so hide it from Inspector
@@ -91,12 +111,20 @@ public class Card : MonoBehaviour {
 		name = ToString ();				//Name it so it shows with name in Hierarchy, handy for debug
 		SetCardSprite();
 	}
-
 	private	void	SetCardSprite() {		//Moved this to a method as its also used in Init()
 		if (ShowCard) {						//Check which side of the card to show
 			SR.sprite = FrontSprite;		//Show the front, if card does not show in game ensure FrontSprite is set in inspector.
 		} else {
 			SR.sprite = BackSprite;			//Show the back, if card does not show in game ensure BackSprite is set in inspector.
+		}
+	}
+
+	public	bool	CardHidden {
+		get {
+			return	!gameObject.activeInHierarchy;
+		}
+		set {
+			gameObject.SetActive(!value);
 		}
 	}
 
